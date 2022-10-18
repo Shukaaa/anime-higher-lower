@@ -1,1 +1,17 @@
-<p>content works!</p>
+
+  <div id="loading" class="loading-screen center">
+    <h2>Loading 250 animes to play with!</h2>
+    <div class="lds-ring vertical-center"><div></div><div></div><div></div><div></div></div>
+  </div>
+  <h2 id="game">Which one has more member?</h2>
+  <section class="game-section center">
+    <div *ngFor="let anime of randomAnime; index as i; first as isFirst">
+      <button>More Member</button><br>
+      <img [src]='anime["images"]["jpg"]["image_url"]' width="225" height="330">
+      <h2>{{ anime["title"] }}</h2>
+      <h4>English: {{ anime["title_english"] }}</h4>
+      <h4>Japanese: {{ anime["title_japanese"] }}</h4>
+      <br>
+      <h3>Type: {{ anime["type"] }}</h3>
+    </div>
+  </section>
