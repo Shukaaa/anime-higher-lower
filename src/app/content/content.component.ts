@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpRequests } from "../http-requests";
-
-function randomIntFromInterval(min: number, max: number) { // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
+import { delay, randomInt } from '../utils';
 
 @Component({
   selector: 'app-content',
@@ -13,41 +10,38 @@ function randomIntFromInterval(min: number, max: number) { // min and max includ
 export class ContentComponent implements OnInit {
 
   requests = new HttpRequests()
+
   randomAnime1: any
   randomAnime2: any
   randomAnime: any
+
+  // difficulty settings
+  max_top_amount = 200
 
   constructor() { }
 
   async ngOnInit(): Promise<void> {
     // @ts-ignore
     document.getElementById("game").style.display = "none"
-    let anime = await this.requests.get("anime", 10)
 
+    this.randomAnime1 = await this.requests.getRandom("anime", this.max_top_amount)
     while (true) {
-      this.randomAnime1 = await anime[randomIntFromInterval(0, 249)]
-      this.randomAnime2 = await anime[randomIntFromInterval(0, 249)]
+      this.randomAnime2 = await this.requests.getRandom("anime", this.max_top_amount)
 
-      // @ts-ignore
-      if (!(this.randomAnime1["mal_id"] == this.randomAnime2["mal_id"])) {
+      if (!(this.randomAnime1[0]["mal_id"] == this.randomAnime2[0]["mal_id"])) {
         break
       }
+      console.log("RETRY MATCHING")
+      await delay(1000)
     }
 
-    this.randomAnime = [this.randomAnime1, this.randomAnime2]
+    this.randomAnime = [this.randomAnime1[0], this.randomAnime2[0]]
 
-    console.log(this.randomAnime1)
-    console.log(this.randomAnime2)
+    console.log(this.randomAnime)
 
     // @ts-ignore
     document.getElementById("game").style.display = "block"
-    this.disableLoadingScreen()
-  }
-
-  disableLoadingScreen() {
     // @ts-ignore
     document.getElementById("loading").remove()
   }
-
-
 }
