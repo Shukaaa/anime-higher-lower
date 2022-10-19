@@ -1,29 +1,26 @@
 import axios from 'axios'
-
-function delay(time: number) {
-  return new Promise(resolve => setTimeout(resolve, time));
-}
+import { randomInt } from './utils'
 
 export class HttpRequests {
 
   url_root = "https://api.jikan.moe/v4/top/"
 
-  public async get(endpoint: string, pages: number) {
+  public async getRandom(endpoint: string, limit: number) {
     let url = this.url_root + endpoint
     let data: any[] = []
 
-    for (let i = 1; i <= pages; i++) {
-      await axios.get(url, {
-        params: {
-          page: i
-        }
+    let randomPageNumber = randomInt(1, limit)
+
+    await axios.get(url, {
+      params: {
+        page: randomPageNumber,
+        limit: 1
+      }
+    })
+      .then((res) => {
+        let tempData: object[] = res['data']['data']
+        tempData.forEach(e => data.push(e))
       })
-        .then((res) => {
-          let tempData: object[] = res['data']['data']
-          tempData.forEach(e => data.push(e))
-        })
-      await delay(600);
-    }
     return data
   }
 }
