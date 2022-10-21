@@ -22,9 +22,7 @@ export class ContentComponent implements OnInit {
   constructor() { }
 
   async ngOnInit(): Promise<void> {
-    await this.viewControllFirst()
-    await this.loadNewGameData()
-    await this.viewControllSecond()
+    await this.continue()
   }
 
   async chooseAnime(i: number) {
@@ -38,16 +36,15 @@ export class ContentComponent implements OnInit {
     let chosenAnime = this.randomAnime[i]
     let secondAnime = this.randomAnime[j]
 
+    // @ts-ignore
+    document.getElementById("loading").style.display = "none"
     if (chosenAnime.members >= secondAnime.members) {
+      // @ts-ignore
+      document.getElementById("right").style.display = "block"
       this.score++
-      alert("You're right! New Score: " + this.score)
-      await this.loadNewGameData()
-      await this.viewControllSecond()
     } else {
-      alert("You're wrong :(")
-      await this.loadNewGameData()
-      this.score = 0
-      await this.viewControllSecond()
+      // @ts-ignore
+      document.getElementById("loosing").style.display = "block"
     }
   }
 
@@ -55,12 +52,20 @@ export class ContentComponent implements OnInit {
     // @ts-ignore
     document.getElementById("game").style.display = "none"
     // @ts-ignore
+    document.getElementById("right").style.display = "none"
+    // @ts-ignore
+    document.getElementById("loosing").style.display = "none"
+    // @ts-ignore
     document.getElementById("loading").style.display = "block"
   }
 
   async viewControllSecond() {
     // @ts-ignore
     document.getElementById("game").style.display = "block"
+    // @ts-ignore
+    document.getElementById("right").style.display = "none"
+    // @ts-ignore
+    document.getElementById("loosing").style.display = "none"
     // @ts-ignore
     document.getElementById("loading").style.display = "none"
   }
@@ -78,5 +83,16 @@ export class ContentComponent implements OnInit {
     }
 
     this.randomAnime = [this.randomAnime1[0], this.randomAnime2[0]]
+  }
+
+  async continue() {
+    await this.viewControllFirst()
+    await this.loadNewGameData()
+    await this.viewControllSecond()
+  }
+
+  async retry() {
+    await this.continue()
+    this.score = 0
   }
 }

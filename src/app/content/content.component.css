@@ -11,23 +11,30 @@
 }
 
 .game-section > div {
-  padding: 1em;
-}
-
-button {
-  margin-bottom: 1em;
-  background-color: transparent;
-  color: #333;
-  padding: 0.5em 1em;
-  border: 2px solid #333;
-  border-radius: 10%;
-}
-
-button:hover {
-  background-color: #eee;
+  padding: 2em;
 }
 
 .content {
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
+}
+
+.clickable-content {
+  cursor: pointer;
+}
+
+.clickable-content:hover > img {
+  box-shadow: 0 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+a {
+  background: coral;
+  padding: 0.5em 1em;
+  color: #fff;
+  box-shadow: 0 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+  cursor: pointer;
+}
+
+a:hover {
+  background: chocolate;
 }

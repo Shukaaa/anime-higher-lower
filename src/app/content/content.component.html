@@ -4,13 +4,26 @@
   <h4>Score: {{ score }}</h4>
   <section class="game-section center">
     <div class="content" *ngFor="let anime of randomAnime; index as i; first as isFirst">
-      <button id="button" (click)="chooseAnime(i)">More Member</button><br>
-      <img [src]='anime["images"]["jpg"]["image_url"]' width="225" height="330" alt="anime image">
-      <h2>{{ anime["title"] }}</h2>
-      <h4>English: {{ anime["title_english"] }}</h4>
-      <h4>Japanese: {{ anime["title_japanese"] }}</h4>
-      <br>
-      <h3>Type: {{ anime["type"] }}</h3>
+      <div class="clickable-content" (click)="chooseAnime(i)">
+        <img [src]='anime["images"]["jpg"]["image_url"]' width="225" height="330" alt="anime image">
+        <h2>{{ anime["title"] }}</h2>
+        <h4>English: {{ anime["title_english"] }}</h4>
+        <h4>Japanese: {{ anime["title_japanese"] }}</h4>
+        <br>
+        <h3>Type: {{ anime["type"] }}</h3>
+      </div>
     </div>
   </section>
+</div>
+<div id="right" class="center">
+  <img src="../../assets/img/right.png" alt="You got it!">
+  <h2>YAY YOU'RE RIGHT!</h2>
+  <h4>Score +1</h4>
+  <a (click)="continue()">Continue</a>
+</div>
+<div id="loosing" class="center">
+  <img src="../../assets/img/wrong.gif" alt="You're wrong :(">
+  <h2>NOOOOOO!</h2>
+  <h4>Your Score was {{ score }}</h4>
+  <a (click)="retry()">Retry</a>
 </div>
