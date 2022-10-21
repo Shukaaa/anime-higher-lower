@@ -6,16 +6,28 @@
 .game-section {
   text-align: center;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-section > div {
   padding: 1em;
 }
 
-h2 {
-  text-align: center;
-}
-
 button {
   margin-bottom: 1em;
+  background-color: transparent;
+  color: #333;
+  padding: 0.5em 1em;
+  border: 2px solid #333;
+  border-radius: 10%;
+}
+
+button:hover {
+  background-color: #eee;
+}
+
+.content {
+  width: 600px;
+  height: 600px;
 }

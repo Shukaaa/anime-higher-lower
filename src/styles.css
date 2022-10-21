@@ -1,1 +1,5 @@
 @import url("./assets/lib/css/normalize.css");
+
+* {
+  text-align: center;
+}
