@@ -4,9 +4,9 @@
   <h4>Score: {{ score }}</h4>
   <section class="game-section center">
     <div class="content" *ngFor="let anime of randomAnime; index as i; first as isFirst">
-      <div class="clickable-content" (click)="chooseAnime(i)">
-        <img [src]='anime["images"]["jpg"]["image_url"]' width="225" height="330" alt="anime image">
-        <h2>{{ anime["title"] }}</h2>
+      <div>
+        <img class="clickable-content" (click)="chooseAnime(i)" [src]='anime["images"]["jpg"]["image_url"]' width="225" height="330" alt="anime image">
+        <h2><u>{{ anime["title"] }}</u></h2>
         <h4>English: {{ anime["title_english"] }}</h4>
         <h4>Japanese: {{ anime["title_japanese"] }}</h4>
         <br>
