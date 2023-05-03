@@ -2,7 +2,7 @@
 <div id="game">
   <h2>Which anime has more member?</h2>
   <h4>Score: {{ score }}</h4>
-  <section class="game-section center">
+  <section class="game-section center-basic">
     <div class="content" *ngFor="let anime of randomAnime; index as i; first as isFirst">
       <div>
         <img class="clickable-content" (click)="chooseAnime(i)" [src]='anime["images"]["jpg"]["image_url"]' width="225" height="330" alt="anime image">

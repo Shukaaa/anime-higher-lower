@@ -11,12 +11,12 @@
 }
 
 .game-section > div {
-  padding: 2em;
+  padding: 1em;
 }
 
 .content {
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: min-content;
 }
 
 .clickable-content {

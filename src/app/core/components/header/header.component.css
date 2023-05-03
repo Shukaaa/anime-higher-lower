@@ -1,11 +1,11 @@
-h1 {
+h1, span {
   text-align: center;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 header {
   padding-top: 1em;
-  background-image: url("../../../assets/img/header-bg.png");
+  background-image: url("../../../../assets/img/header-bg.png");
   background-color: #fff;
   height: 100px; /* You must set a specified height */
   background-position: center; /* Center the image */
@@ -13,4 +13,9 @@ header {
   background-size: cover; /* Resize the background image to cover the entire container */
   color: #fff;
   object-fit: cover;
+}
+
+a, a:visited, a:link {
+  color: #fff;
+  text-decoration: none;
 }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { randomInt } from './utils'
+import { randomInt } from '../utils/utils'
 
 export class HttpRequests {
 

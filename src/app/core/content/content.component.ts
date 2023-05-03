@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpRequests } from "../http-requests";
-import { delay, randomInt } from '../utils';
+import { HttpRequests } from "../http/http-requests";
+import { delay } from '../utils/utils';
 
 @Component({
   selector: 'app-content',
