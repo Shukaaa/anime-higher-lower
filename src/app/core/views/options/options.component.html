@@ -1,0 +1,21 @@
+<h1>Game Options</h1>
+
+<form [formGroup]="options">
+  <label>
+    Type:
+    <select formControlName="types">
+      <option *ngFor="let option of types" [value]="option.value">{{option.viewValue}}</option>
+    </select>
+  </label>
+  <br><br>
+  <label>
+    Numbers of Top
+      <span *ngIf="options.controls.types.value == 'anime'">{{types[0].viewValue}}</span>
+      <span *ngIf="options.controls.types.value == 'manga'">{{types[1].viewValue}}</span>:
+    <select formControlName="limit">
+      <option *ngFor="let option of limit" [value]="option.value">{{option.viewValue}}</option>
+    </select>
+  </label>
+</form>
+
+<a (click)="start()">Start Game</a>

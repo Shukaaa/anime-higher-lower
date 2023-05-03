@@ -7,6 +7,8 @@ import {ContentComponent} from "./core/views/content/content.component";
 import {HttpClient} from "./core/http/http-client";
 import {WinningComponent} from "./core/views/winning/winning.component";
 import {LoosingComponent} from "./core/views/loosing/loosing.component";
+import {OptionsComponent} from "./core/views/options/options.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -15,10 +17,12 @@ import {LoosingComponent} from "./core/views/loosing/loosing.component";
     LoadingComponent,
     ContentComponent,
     WinningComponent,
-    LoosingComponent
+    LoosingComponent,
+    OptionsComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
   ],
   providers: [
     HttpClient

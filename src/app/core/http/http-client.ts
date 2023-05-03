@@ -32,7 +32,8 @@ export class HttpClient {
     await axios.get(url, {
       params: {
         limit: 1,
-        page: page
+        page: page,
+        filter: "bypopularity"
       }
     }).then((res) => {
       data = res['data']['data']

@@ -9,6 +9,7 @@ import {GameData} from "../../types/GameData";
   styleUrls: ['./content.component.css', '../view.css']
 })
 export class ContentComponent implements AfterViewInit {
+  options_loaded: boolean = false
 
   game_data: GameData = {
     score: 0,
@@ -33,6 +34,16 @@ export class ContentComponent implements AfterViewInit {
     this.element_section_loose = document.getElementById("loosing")
     this.element_section_loading = document.getElementById("loading")
 
+    this.element_section_game!.style.display = "none"
+    this.element_section_won!.style.display = "none"
+    this.element_section_loose!.style.display = "none"
+    this.element_section_loading!.style.display = "none"
+  }
+
+  async start(options: GameOptions) {
+    this.options = options
+    this.options_loaded = true
+    this.element_section_game!.style.display = "block"
     await this.continue()
   }
 

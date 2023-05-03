@@ -1,4 +1,5 @@
 a {
+  display: inline-block;
   background: coral;
   padding: 0.5em 1em;
   color: #fff;
@@ -6,6 +7,10 @@ a {
   cursor: pointer;
   border-radius: 7px;
   transition: 0.1s;
+}
+
+form {
+  margin-bottom: 1em;
 }
 
 a:hover {
