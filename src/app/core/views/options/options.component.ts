@@ -26,7 +26,7 @@ export class OptionsComponent {
 
   options = new FormGroup({
     types: new FormControl("anime"),
-    limit: new FormControl(200),
+    limit: new FormControl(250),
   });
 
   start() {
