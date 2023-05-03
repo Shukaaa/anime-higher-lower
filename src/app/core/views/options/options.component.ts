@@ -12,16 +12,16 @@ export class OptionsComponent {
 
   types = [
     {value: 'anime', viewValue: 'Anime'},
-    {value: 'manga', viewValue: 'Manga, Manhua, Manwha & Light Novel'},
+    {value: 'manga', viewValue: 'Manga'},
   ]
 
   limit = [
-    {value: 50, viewValue: '50'},
-    {value: 100, viewValue: '100'},
-    {value: 200, viewValue: '200'},
-    {value: 500, viewValue: '500'},
-    {value: 1000, viewValue: '1000'},
-    {value: 5000, viewValue: '5000'},
+    {value: 50, viewValue: 'Very Easy (50)'},
+    {value: 100, viewValue: 'Easy (100)'},
+    {value: 250, viewValue: 'Medium (250)'},
+    {value: 500, viewValue: 'Hard (500)'},
+    {value: 1000, viewValue: 'Very Hard (1000)'},
+    {value: 5000, viewValue: 'Extreme (5000)'},
   ]
 
   options = new FormGroup({
