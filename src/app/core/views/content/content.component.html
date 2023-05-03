@@ -1,6 +1,6 @@
 <component-loading id="loading"></component-loading>
 <div id="game">
-  <h2>Which anime has more member?</h2>
+  <h2>Which anime has more viewer?</h2>
   <h4>Score: {{ game_data.score }}</h4>
   <section class="game-section center-basic">
     <div class="content" *ngFor="let entry of game_data.randomEntries; index as i; first as isFirst">
@@ -15,15 +15,5 @@
     </div>
   </section>
 </div>
-<div id="right" class="center">
-  <img src="../../../assets/img/right.png" alt="You got it!">
-  <h2>YAY YOU'RE RIGHT!</h2>
-  <h4>Score +1</h4>
-  <a (click)="continue()">Continue</a>
-</div>
-<div id="loosing" class="center">
-  <img src="../../../assets/img/wrong.gif" alt="You're wrong :(">
-  <h2>NOOOOOO!</h2>
-  <h4>Your Score was {{ game_data.score }}</h4>
-  <a (click)="retry()">Retry</a>
-</div>
+<app-winning id="right" class="center" (continueClicked)="continue()"></app-winning>
+<app-loosing id="loosing" class="center" (retryClicked)="retry()" [score]="game_data.score"></app-loosing>

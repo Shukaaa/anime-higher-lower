@@ -33,18 +33,3 @@ img:hover {
   border-radius: 18px;
   transition: 0.1s;
 }
-
-a {
-  background: coral;
-  padding: 0.5em 1em;
-  color: #fff;
-  box-shadow: 0 12px 12px -7px #bdbdbd, 5px 5px 15px 5px rgba(0,0,0,0);
-  cursor: pointer;
-  border-radius: 7px;
-  transition: 0.1s;
-}
-
-a:hover {
-  background: chocolate;
-  border-radius: 12px;
-}

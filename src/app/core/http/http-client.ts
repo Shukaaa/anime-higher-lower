@@ -37,7 +37,7 @@ export class HttpClient {
     }).then((res) => {
       data = res['data']['data']
     }).catch((err) => {
-      console.log(err)
+      console.error(err)
     })
 
     return data

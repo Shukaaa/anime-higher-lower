@@ -1,12 +1,12 @@
 import {AfterViewInit, Component} from '@angular/core';
-import { HttpClient } from "../http/http-client";
-import {GameOptions} from "../types/GameOptions";
-import {GameData} from "../types/GameData";
+import { HttpClient } from "../../http/http-client";
+import {GameOptions} from "../../types/GameOptions";
+import {GameData} from "../../types/GameData";
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
-  styleUrls: ['./content.component.css']
+  styleUrls: ['./content.component.css', '../view.css']
 })
 export class ContentComponent implements AfterViewInit {
 
