@@ -1,7 +1,10 @@
 <component-loading id="loading"></component-loading>
 <app-options *ngIf="!options_loaded" (startClicked)="start($event)"></app-options>
 <div id="game">
-  <h2>Which anime has more viewer?</h2>
+  <h2>Which {{ options.type | titlecase }} has more
+    <span *ngIf="options.type == 'anime'">viewer</span>
+    <span *ngIf="options.type == 'manga'">reader</span>
+    <span *ngIf="options.type == 'characters'">popularity</span>?</h2>
   <h4>Score: {{ game_data.score }}</h4>
   <section class="game-section center-basic">
     <div class="content" *ngFor="let entry of game_data.randomEntries; index as i; first as isFirst">
