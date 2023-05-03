@@ -1,98 +1,82 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpRequests } from "../http/http-requests";
-import { delay } from '../utils/utils';
+import {AfterViewInit, Component} from '@angular/core';
+import { HttpClient } from "../http/http-client";
+import {GameOptions} from "../types/GameOptions";
+import {GameData} from "../types/GameData";
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent implements AfterViewInit {
 
-  requests = new HttpRequests()
+  game_data: GameData = {
+    score: 0,
+    randomEntries: []
+  }
 
-  randomAnime1: any
-  randomAnime2: any
-  randomAnime: any
-  score = 0
+  options: GameOptions = {
+    max_top_amount: 200,
+    type: "anime"
+  }
 
-  // difficulty settings
-  max_top_amount = 200
+  element_section_game: HTMLElement | null = null
+  element_section_won: HTMLElement | null = null
+  element_section_loose: HTMLElement | null = null
+  element_section_loading: HTMLElement | null = null
 
-  constructor() { }
+  constructor(private requests: HttpClient) { }
 
-  async ngOnInit(): Promise<void> {
+  async ngAfterViewInit(): Promise<void> {
+    this.element_section_game = document.getElementById("game")
+    this.element_section_won = document.getElementById("right")
+    this.element_section_loose = document.getElementById("loosing")
+    this.element_section_loading = document.getElementById("loading")
+
     await this.continue()
   }
 
-  async chooseAnime(i: number) {
-    await this.viewControllFirst()
-
-    let j = 0
-    if (i == 0) {
-      j = 1
-    }
-
-    let chosenAnime = this.randomAnime[i]
-    let secondAnime = this.randomAnime[j]
-
-    // @ts-ignore
-    document.getElementById("loading").style.display = "none"
-    if (chosenAnime.members >= secondAnime.members) {
-      // @ts-ignore
-      document.getElementById("right").style.display = "block"
-      this.score++
-    } else {
-      // @ts-ignore
-      document.getElementById("loosing").style.display = "block"
-    }
-  }
-
-  async viewControllFirst() {
-    // @ts-ignore
-    document.getElementById("game").style.display = "none"
-    // @ts-ignore
-    document.getElementById("right").style.display = "none"
-    // @ts-ignore
-    document.getElementById("loosing").style.display = "none"
-    // @ts-ignore
-    document.getElementById("loading").style.display = "block"
-  }
-
-  async viewControllSecond() {
-    // @ts-ignore
-    document.getElementById("game").style.display = "block"
-    // @ts-ignore
-    document.getElementById("right").style.display = "none"
-    // @ts-ignore
-    document.getElementById("loosing").style.display = "none"
-    // @ts-ignore
-    document.getElementById("loading").style.display = "none"
-  }
-
   async loadNewGameData() {
-    this.randomAnime1 = await this.requests.getRandom("anime", this.max_top_amount)
-    while (true) {
-      this.randomAnime2 = await this.requests.getRandom("anime", this.max_top_amount)
+    this.game_data.randomEntries = await this.requests.getRandomEntry(this.options.type, this.options.max_top_amount)
+  }
 
-      if (!(this.randomAnime1[0]["mal_id"] == this.randomAnime2[0]["mal_id"])) {
-        break
-      }
-      console.log("RETRY MATCHING")
-      await delay(1000)
+  chooseAnime(i: number) {
+    let chosenAnime = this.game_data.randomEntries[i == 0 ? 0 : 1]
+    let secondAnime = this.game_data.randomEntries[i == 0 ? 1 : 0]
+
+    this.element_section_game!.style.display = "none"
+    if (chosenAnime.members >= secondAnime.members) {
+      this.element_section_won!.style.display = "block"
+      this.game_data.score++
+    } else {
+      this.element_section_loose!.style.display = "block"
     }
+  }
 
-    this.randomAnime = [this.randomAnime1[0], this.randomAnime2[0]]
+  hideWinningLoosing() {
+    this.element_section_won!.style.display = "none"
+    this.element_section_loose!.style.display = "none"
+  }
+
+  toggleLoading() {
+    this.element_section_game!.style.display = "none"
+    this.element_section_loading!.style.display = "block"
+  }
+
+  endLoading() {
+    this.element_section_game!.style.display = "block"
+    this.element_section_loading!.style.display = "none"
   }
 
   async continue() {
-    await this.viewControllFirst()
+    this.hideWinningLoosing()
+    this.toggleLoading()
     await this.loadNewGameData()
-    await this.viewControllSecond()
+    this.endLoading()
   }
 
   async retry() {
     await this.continue()
-    this.score = 0
+    this.game_data.score = 0
   }
 }

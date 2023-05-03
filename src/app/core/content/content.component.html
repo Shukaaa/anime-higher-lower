@@ -1,16 +1,16 @@
 <component-loading id="loading"></component-loading>
 <div id="game">
   <h2>Which anime has more member?</h2>
-  <h4>Score: {{ score }}</h4>
+  <h4>Score: {{ game_data.score }}</h4>
   <section class="game-section center-basic">
-    <div class="content" *ngFor="let anime of randomAnime; index as i; first as isFirst">
+    <div class="content" *ngFor="let entry of game_data.randomEntries; index as i; first as isFirst">
       <div>
-        <img class="clickable-content" (click)="chooseAnime(i)" [src]='anime["images"]["jpg"]["image_url"]' width="225" height="330" alt="anime image">
-        <h2><u>{{ anime["title"] }}</u></h2>
-        <h4>English: {{ anime["title_english"] }}</h4>
-        <h4>Japanese: {{ anime["title_japanese"] }}</h4>
+        <img class="clickable-content" (click)="chooseAnime(i)" [src]='entry["images"]["jpg"]["image_url"]' width="225" height="330" alt="anime image">
+        <h2><u>{{ entry["title"] }}</u></h2>
+        <h4>English: {{ entry["title_english"] }}</h4>
+        <h4>Japanese: {{ entry["title_japanese"] }}</h4>
         <br>
-        <h3>Type: {{ anime["type"] }}</h3>
+        <h3>Type: {{ entry["type"] }}</h3>
       </div>
     </div>
   </section>
@@ -24,6 +24,6 @@
 <div id="loosing" class="center">
   <img src="../../assets/img/wrong.gif" alt="You're wrong :(">
   <h2>NOOOOOO!</h2>
-  <h4>Your Score was {{ score }}</h4>
+  <h4>Your Score was {{ game_data.score }}</h4>
   <a (click)="retry()">Retry</a>
 </div>
