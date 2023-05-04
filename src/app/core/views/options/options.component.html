@@ -1,41 +1,48 @@
 <h1>Game Options</h1>
 
 <form [formGroup]="options">
-  <label>
-    Type:
+  <div class="selects">
+    <label>Type: </label>
+    <br>
     <select formControlName="types">
       <option *ngFor="let option of types" [value]="option.value">{{option.viewValue}}</option>
     </select>
-  </label>
-  <br><br><br>
-  <label>
-    Numbers of Top
+  </div>
+
+  <br>
+
+  <div class="selects">
+    <label>Numbers of Top
       <span *ngIf="options.controls.types.value == 'anime'">{{types[0].viewValue}}</span>
       <span *ngIf="options.controls.types.value == 'manga'">{{types[1].viewValue}}</span>:
+    </label>
+    <br>
     <select formControlName="limit">
       <option *ngFor="let option of limit" [value]="option.value">{{option.viewValue}}</option>
     </select>
-  </label>
-  <br><br><br>
+  </div>
+
   <fieldset>
     <legend>Given Information</legend>
 
-    <div>
-      <input type="checkbox" formControlName="title">
-      <label>Title</label>
-    </div>
-    <div>
-      <input type="checkbox" formControlName="title_english">
-      <label>Title English</label>
-    </div>
-    <div>
-      <input type="checkbox" formControlName="type">
-      <label>Type</label>
-    </div>
-    <div>
-      <input type="checkbox" formControlName="episodes">
-      <label *ngIf="options.controls.types.value == 'anime'">Episodes</label>
-      <label *ngIf="options.controls.types.value == 'manga'">Volumes</label>
+    <div class="checkboxes">
+      <div>
+        <input type="checkbox" formControlName="title">
+        <label>Title</label>
+      </div>
+      <div>
+        <input type="checkbox" formControlName="title_english">
+        <label>Title English</label>
+      </div>
+      <div>
+        <input type="checkbox" formControlName="type">
+        <label>Type</label>
+      </div>
+      <div>
+        <input type="checkbox" formControlName="episodes">
+        <label *ngIf="options.controls.types.value == 'anime'">Episodes</label>
+        <label *ngIf="options.controls.types.value == 'manga'">Volumes</label>
+      </div>
     </div>
   </fieldset>
 </form>

@@ -5,13 +5,22 @@
   justify-content: center;
 }
 
+@media (max-width: 700px) {
+  .game-section {
+    flex-direction: column;
+  }
+  .content {
+    width: min-content;
+  }
+}
+
 .game-section > div {
   padding: 1em;
 }
 
 .content {
   width: 400px;
-  height: min-content;
+  height: 500px;
 }
 
 .clickable-content {

@@ -9,6 +9,7 @@ import {WinningComponent} from "./core/views/winning/winning.component";
 import {LoosingComponent} from "./core/views/loosing/loosing.component";
 import {OptionsComponent} from "./core/views/options/options.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import {FooterComponent} from "./core/components/footer/footer.component";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     ContentComponent,
     WinningComponent,
     LoosingComponent,
-    OptionsComponent
+    OptionsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

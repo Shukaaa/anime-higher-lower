@@ -1,0 +1,15 @@
+footer {
+  background-color: var(--background-dark);
+  padding: 15px 0;
+  border-top: 2px solid var(--border-dark);
+  font-size: 14px;
+  color: #fff;
+}
+
+a {
+  color: #fff;
+}
+
+a:hover {
+  text-decoration: underline;
+}
