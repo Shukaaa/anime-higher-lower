@@ -18,7 +18,7 @@ export class ContentComponent implements AfterViewInit {
 
   options: GameOptions = {
     max_top_amount: 200,
-    type: "anime"
+    game_type: "anime"
   }
 
   element_section_game: HTMLElement | null = null
@@ -48,7 +48,7 @@ export class ContentComponent implements AfterViewInit {
   }
 
   async loadNewGameData() {
-    this.game_data.randomEntries = await this.requests.getRandomEntry(this.options.type, this.options.max_top_amount)
+    this.game_data.randomEntries = await this.requests.getRandomEntry(this.options.game_type, this.options.max_top_amount)
   }
 
   chooseAnime(i: number) {

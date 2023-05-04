@@ -1,4 +1,6 @@
 export type GameOptions = {
     max_top_amount: number,
-    type: "anime" | "manga" | "characters"
+    game_type: GameType
 }
+
+export type GameType = "anime" | "manga" | "characters"

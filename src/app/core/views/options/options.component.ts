@@ -31,7 +31,7 @@ export class OptionsComponent {
 
   start() {
     this.startClicked.emit({
-      type: this.options.controls.types.value as "anime" | "manga",
+      game_type: this.options.controls.types.value as "anime" | "manga",
       max_top_amount: this.options.controls.limit.value as number
     });
   }
