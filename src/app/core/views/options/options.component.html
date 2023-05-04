@@ -7,7 +7,7 @@
       <option *ngFor="let option of types" [value]="option.value">{{option.viewValue}}</option>
     </select>
   </label>
-  <br><br>
+  <br><br><br>
   <label>
     Numbers of Top
       <span *ngIf="options.controls.types.value == 'anime'">{{types[0].viewValue}}</span>
@@ -16,6 +16,28 @@
       <option *ngFor="let option of limit" [value]="option.value">{{option.viewValue}}</option>
     </select>
   </label>
+  <br><br><br>
+  <fieldset>
+    <legend>Given Information</legend>
+
+    <div>
+      <input type="checkbox" formControlName="title">
+      <label>Title</label>
+    </div>
+    <div>
+      <input type="checkbox" formControlName="title_english">
+      <label>Title English</label>
+    </div>
+    <div>
+      <input type="checkbox" formControlName="type">
+      <label>Type</label>
+    </div>
+    <div>
+      <input type="checkbox" formControlName="episodes">
+      <label *ngIf="options.controls.types.value == 'anime'">Episodes</label>
+      <label *ngIf="options.controls.types.value == 'manga'">Volumes</label>
+    </div>
+  </fieldset>
 </form>
 
 <a (click)="start()">Start Game</a>

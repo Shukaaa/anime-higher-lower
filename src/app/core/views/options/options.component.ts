@@ -27,12 +27,22 @@ export class OptionsComponent {
   options = new FormGroup({
     types: new FormControl("anime"),
     limit: new FormControl(250),
+    title: new FormControl(true),
+    title_english: new FormControl(true),
+    type: new FormControl(true),
+    episodes: new FormControl(true),
   });
 
   start() {
     this.startClicked.emit({
       game_type: this.options.controls.types.value as "anime" | "manga",
-      max_top_amount: this.options.controls.limit.value as number
+      max_top_amount: this.options.controls.limit.value as number,
+      game_information: {
+        title: this.options.controls.title.value as boolean,
+        title_english: this.options.controls.title_english.value as boolean,
+        type: this.options.controls.type.value as boolean,
+        episodes: this.options.controls.episodes.value as boolean
+      }
     });
   }
 }

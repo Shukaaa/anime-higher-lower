@@ -18,7 +18,13 @@ export class ContentComponent implements AfterViewInit {
 
   options: GameOptions = {
     max_top_amount: 200,
-    game_type: "anime"
+    game_type: "anime",
+    game_information: {
+      title: true,
+      title_english: true,
+      type: true,
+      episodes: true
+    }
   }
 
   element_section_game: HTMLElement | null = null
