@@ -83,9 +83,16 @@ export class HttpClient {
         title_japanese: data["title_japanese"]
       }
 
+      let episodes = 0
+      if (endpoint == "anime") {
+        episodes = data["episodes"]
+      } else if (endpoint == "manga") {
+        episodes = data["volumes"]
+      }
+
       entry = {
         game_type: endpoint,
-        episodes: data["episodes"],
+        episodes: episodes,
         favorites: data["favorites"],
         genres: genres,
         images: images,

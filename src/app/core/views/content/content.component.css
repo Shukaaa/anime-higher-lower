@@ -28,3 +28,7 @@ img:hover {
   border-radius: 18px;
   transition: 0.1s;
 }
+
+p {
+  margin: 0.25em;
+}
