@@ -30,12 +30,12 @@
 img {
   object-fit: cover;
   border-radius: 12px;
+  transition: 0.2s;
 }
 
 img:hover {
-  box-shadow: 0 12px 12px -7px #bdbdbd, 5px 5px 15px 5px rgba(0,0,0,0);
+  box-shadow: 0 12px 12px -7px var(--background-dark), 5px 5px 15px 5px rgba(0,0,0,0);
   border-radius: 18px;
-  transition: 0.1s;
 }
 
 p {
