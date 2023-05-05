@@ -15,7 +15,7 @@
 }
 
 .game-section > div {
-  padding: 1em;
+  padding: 0.5em;
 }
 
 .content {
@@ -40,4 +40,8 @@ img:hover {
 
 p {
   margin: 0.25em;
+}
+
+h2, h4 {
+  margin: 1rem;
 }

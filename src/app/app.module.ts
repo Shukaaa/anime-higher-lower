@@ -10,6 +10,7 @@ import {LoosingComponent} from "./core/views/loosing/loosing.component";
 import {OptionsComponent} from "./core/views/options/options.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FooterComponent} from "./core/components/footer/footer.component";
+import { HighscoreStore } from './core/store/highscore.store';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {FooterComponent} from "./core/components/footer/footer.component";
     ReactiveFormsModule,
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    HighscoreStore
   ],
   bootstrap: [AppComponent]
 })

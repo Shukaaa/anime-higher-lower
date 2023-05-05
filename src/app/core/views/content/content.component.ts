@@ -1,19 +1,21 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { HttpClient } from "../../http/http-client";
 import {GameOptions} from "../../types/GameOptions";
 import {GameData} from "../../types/GameData";
+import { HighscoreStore } from '../../store/highscore.store';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css', '../view.css']
 })
-export class ContentComponent implements AfterViewInit {
+export class ContentComponent implements AfterViewInit, OnInit {
   options_loaded: boolean = false
   loading: boolean = false
 
   game_data: GameData = {
     score: 0,
+    highscore: 0,
     randomEntries: []
   }
 
@@ -33,7 +35,14 @@ export class ContentComponent implements AfterViewInit {
   element_section_loose: HTMLElement | null = null
   element_section_loading: HTMLElement | null = null
 
-  constructor(private requests: HttpClient) { }
+  constructor(private requests: HttpClient,
+              private highscoreStore: HighscoreStore) { }
+
+
+  
+  ngOnInit(): void {
+    this.game_data.highscore = this.highscoreStore.getScore();
+  }
 
   async ngAfterViewInit(): Promise<void> {
     this.element_section_game = document.getElementById("game")
@@ -69,6 +78,9 @@ export class ContentComponent implements AfterViewInit {
       this.game_data.score++
     } else {
       this.element_section_loose!.style.display = "block"
+      if (this.game_data.score > this.game_data.highscore) {
+        this.highscoreStore.setScore(this.game_data.score)
+      }
     }
 
     await this.loadingData()
@@ -106,7 +118,8 @@ export class ContentComponent implements AfterViewInit {
   }
 
   async retry() {
-    await this.continue()
+    this.continue()
     this.game_data.score = 0
+    this.game_data.highscore = this.highscoreStore.getScore()
   }
 }

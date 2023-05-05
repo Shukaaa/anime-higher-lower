@@ -5,7 +5,10 @@
     <span *ngIf="options.game_type == 'anime'">viewer</span>
     <span *ngIf="options.game_type == 'manga'">reader</span>
     <span *ngIf="options.game_type == 'characters'">popularity</span>?</h2>
-  <h4>Score: {{ game_data.score }}</h4>
+    <h4>
+      <p>Highscore: {{ game_data.highscore }}</p>
+      <p>Score: {{ game_data.score }}</p>
+    </h4>
   <section class="game-section center-basic">
     <div class="content" *ngFor="let entry of game_data.randomEntries; index as i; first as isFirst">
       <div>

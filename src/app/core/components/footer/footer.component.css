@@ -14,3 +14,7 @@ a {
 a:hover {
   color: var(--border-dark);
 }
+
+span {
+  color: var(--background-dark-lighter);
+}
