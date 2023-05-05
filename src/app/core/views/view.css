@@ -49,3 +49,7 @@ select {
   min-width: 200px;
   background: transparent;
 }
+
+#loosing, #right {
+  background-color: var(--background-white);
+}

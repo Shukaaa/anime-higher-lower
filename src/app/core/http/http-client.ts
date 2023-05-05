@@ -10,18 +10,36 @@ export class HttpClient {
   url_root = "https://api.jikan.moe/v4/top/"
 
   public async getRandomEntry(endpoint: GameType, limit: number): Promise<Entry[]> {
+    delay(300)
+    
     let randomAnime1 = await this.get(endpoint, randomInt(1, limit))
     let randomAnime2 = await this.get(endpoint, randomInt(1, limit))
 
     while (true) {
-      if (randomAnime1["mal_id"] != randomAnime2["mal_id"]) {
-        break
+      if (randomAnime1.images.image_url == null) {
+        await delay(300)
+        randomAnime1 = await this.get(endpoint, randomInt(1, limit))
       }
 
-      console.log("ANIMES MATCHING, RETRYING...")
-      await delay(500)
+      if (randomAnime2.images.image_url == null) {
+        await delay(300)
+        randomAnime2 = await this.get(endpoint, randomInt(1, limit))
+      }
 
-      randomAnime2 = await this.get("anime", randomInt(1, limit))
+      while (true) {
+        if (randomAnime1["mal_id"] != randomAnime2["mal_id"]) {
+          break
+        }
+  
+        console.log("ANIMES MATCHING, RETRYING...")
+        await delay(500)
+  
+        randomAnime2 = await this.get("anime", randomInt(1, limit))
+      }
+
+      if (randomAnime1.images.image_url != null && randomAnime2.images.image_url != null) {
+        break
+      }
     }
 
     return [randomAnime1, randomAnime2]

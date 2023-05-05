@@ -4,9 +4,14 @@
   --background-dark: #343a40;
   --background-dark-lighter: #cbd2d9;
   --border-dark: #4e575e;
+  --background-white: #fff;
 
 
   --footer-height: 25px;
+}
+
+body {
+  background-color: var(--background-white);
 }
 
 * {

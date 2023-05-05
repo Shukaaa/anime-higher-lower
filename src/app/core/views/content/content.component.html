@@ -12,7 +12,7 @@
         <img class="clickable-content" (click)="chooseAnime(i)" [src]='entry["images"]["image_url"]' width="200" height="300" alt="anime image">
         <h3 *ngIf="options.game_information.title"><u>{{ entry["titles"]["title"] }}</u></h3>
         <h5>
-          <p *ngIf="options.game_information.title_english">English: {{ entry["titles"]["title_english"] }}</p>
+          <p *ngIf="options.game_information.title_english">English: {{ entry["titles"]["title_english"] || entry["titles"]["title"] }}</p>
           <p *ngIf="options.game_information.type">Type: {{ entry["type"] }}</p>
           <p *ngIf="entry.game_type == 'anime' && options.game_information.episodes">Episodes: {{ entry["episodes"] || 'no episode data found' }}</p>
           <p *ngIf="entry.game_type == 'manga' && options.game_information.episodes">Volumes: {{ entry["episodes"] || 'no volume data found' }}</p>

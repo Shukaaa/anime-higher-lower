@@ -10,6 +10,7 @@ import {GameData} from "../../types/GameData";
 })
 export class ContentComponent implements AfterViewInit {
   options_loaded: boolean = false
+  loading: boolean = false
 
   game_data: GameData = {
     score: 0,
@@ -50,14 +51,15 @@ export class ContentComponent implements AfterViewInit {
     this.options = options
     this.options_loaded = true
     this.element_section_game!.style.display = "block"
-    await this.continue()
+    await this.loadingData()
+    this.continue()
   }
 
   async loadNewGameData() {
     this.game_data.randomEntries = await this.requests.getRandomEntry(this.options.game_type, this.options.max_top_amount)
   }
 
-  chooseAnime(i: number) {
+  async chooseAnime(i: number) {
     let chosenAnime = this.game_data.randomEntries[i == 0 ? 0 : 1]
     let secondAnime = this.game_data.randomEntries[i == 0 ? 1 : 0]
 
@@ -68,25 +70,36 @@ export class ContentComponent implements AfterViewInit {
     } else {
       this.element_section_loose!.style.display = "block"
     }
-  }
 
-  hideWinningLoosing() {
-    this.element_section_won!.style.display = "none"
-    this.element_section_loose!.style.display = "none"
+    await this.loadingData()
   }
 
   toggleLoading() {
+    this.loading = true
     this.element_section_game!.style.display = "none"
     this.element_section_loading!.style.display = "block"
   }
 
   endLoading() {
-    this.element_section_game!.style.display = "block"
+    this.loading = false
     this.element_section_loading!.style.display = "none"
   }
 
-  async continue() {
-    this.hideWinningLoosing()
+  showGame() {
+    this.element_section_game!.style.display = "block"
+  }
+
+  continue() {
+    if (!this.loading) {
+      this.element_section_won!.style.display = "none"
+      this.element_section_loose!.style.display = "none"
+      this.showGame()
+    } else {
+      window.setTimeout(this.continue, 100)
+    }
+  }
+
+  async loadingData() {
     this.toggleLoading()
     await this.loadNewGameData()
     this.endLoading()
