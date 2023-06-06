@@ -1,8 +1,11 @@
 header {
-  padding: 1em 0;
+  padding: 1em;
   background-color: var(--background-dark);
   border-bottom: 2px solid var(--border-dark);
   color: #fff;
+
+  display: flex;
+  justify-content: space-between;
 }
 
 h1 {

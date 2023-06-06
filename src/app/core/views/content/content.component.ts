@@ -39,9 +39,9 @@ export class ContentComponent implements AfterViewInit, OnInit {
               private highscoreStore: HighscoreStore) { }
 
 
-  
-  ngOnInit(): void {
-    this.game_data.highscore = this.highscoreStore.getScore();
+
+  async ngOnInit(): Promise<void> {
+    this.game_data.highscore = await this.highscoreStore.getScore();
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -79,7 +79,7 @@ export class ContentComponent implements AfterViewInit, OnInit {
     } else {
       this.element_section_loose!.style.display = "block"
       if (this.game_data.score > this.game_data.highscore) {
-        this.highscoreStore.setScore(this.game_data.score)
+        await this.highscoreStore.setScore(this.game_data.score)
       }
     }
 
@@ -120,6 +120,6 @@ export class ContentComponent implements AfterViewInit, OnInit {
   async retry() {
     this.continue()
     this.game_data.score = 0
-    this.game_data.highscore = this.highscoreStore.getScore()
+    this.game_data.highscore = await this.highscoreStore.getScore()
   }
 }

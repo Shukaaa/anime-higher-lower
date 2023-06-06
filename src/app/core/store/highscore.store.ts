@@ -1,21 +1,61 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
+import axios from 'axios'
+import {ClerkService} from "../service/clerk.service";
+import {Highscore} from "../types/Highscore";
 
 @Injectable()
 export class HighscoreStore {
-    public getScore(): number {
-        const cookie = document.cookie;
-        const cookieParts = cookie.split(';');
-        const highscoreCookie = cookieParts.find((part) => part.includes('highscore'));
-        const highscore = highscoreCookie?.split('=')[1];
+  constructor(private _clerkService: ClerkService) { }
 
-        if (highscore != undefined) {
-            return parseInt(highscore, 10);
+  public async getScore(): Promise<number> {
+    let highscore: number = 0;
+    let user_id = await this._clerkService.user.id;
+
+    await axios.get('http://localhost:3000/highscore/' + user_id).then((response) => {
+      highscore = +response.data.score;
+    }).catch(async (err) => {
+      if (err.response.data.error === "Spieler nicht gefunden") {
+        highscore = 0;
+
+        let body = {
+          player: user_id,
+          score: String(highscore),
+          username: this._clerkService.user.username
         }
 
-        return 0;
-    }
+        console.log(body);
 
-    public setScore(score: number): void {
-        document.cookie = `highscore=${score}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
-    }        
+        await axios.post('http://localhost:3000/highscore', body)
+          .catch((err) => { console.log(err) });
+      }
+    });
+
+    console.log(highscore)
+
+    return highscore;
+  }
+
+  public async setScore(score: number): Promise<void> {
+    let user_id = await this._clerkService.user.id;
+
+    await axios.post('http://localhost:3000/highscore', {
+      player: user_id,
+      score: String(score),
+      username: this._clerkService.user.username
+    });
+  }
+
+  public async getAllScores(): Promise<any> {
+    let highscores: Highscore[] = [];
+
+    await axios.get('http://localhost:3000/highscore').then((response) => {
+      highscores = response.data;
+    }).catch((err) => {
+      console.log(err);
+    });
+
+    console.log(highscores);
+
+    return highscores;
+  }
 }
