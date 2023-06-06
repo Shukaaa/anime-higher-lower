@@ -57,6 +57,10 @@ select {
 ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
-  margin-bottom: 1em;
+  margin: 0 0 1em;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
 }

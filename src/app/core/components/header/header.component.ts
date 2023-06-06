@@ -12,6 +12,8 @@ export class HeaderComponent {
 
   async ngAfterViewInit(): Promise<void> {
     await this._clerkService.load();
-    this._clerkService.mountUserButton(document.getElementById('user-button'));
+    setTimeout(async () => {
+      this._clerkService.mountUserButton(document.getElementById('user-button'))
+    }, 1000);
   }
 }

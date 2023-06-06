@@ -2,5 +2,8 @@
   <img src="../../../../assets/img/wrong.png" alt="You got it!" width="220" height="220">
   <h2>NOOOOOO!</h2>
   <h4>Your Score was {{ score }}</h4>
-  <a (click)="retry()">Retry</a>
+  <div class="flex">
+    <a (click)="retry()">Retry</a>
+    <a (click)="back()">Back to Menu</a>
+  </div>
 </div>

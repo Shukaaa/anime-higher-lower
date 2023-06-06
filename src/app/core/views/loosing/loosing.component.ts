@@ -12,4 +12,8 @@ export class LoosingComponent {
   retry() {
     this.retryClicked.emit();
   }
+
+  back() {
+    window.location.href = "/";
+  }
 }

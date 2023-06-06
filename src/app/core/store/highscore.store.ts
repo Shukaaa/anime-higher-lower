@@ -23,14 +23,10 @@ export class HighscoreStore {
           username: this._clerkService.user.username
         }
 
-        console.log(body);
-
         await axios.post('http://localhost:3000/highscore', body)
           .catch((err) => { console.log(err) });
       }
     });
-
-    console.log(highscore)
 
     return highscore;
   }
@@ -53,8 +49,6 @@ export class HighscoreStore {
     }).catch((err) => {
       console.log(err);
     });
-
-    console.log(highscores);
 
     return highscores;
   }
