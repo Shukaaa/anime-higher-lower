@@ -3,6 +3,8 @@ import { HttpClient } from "../../http/http-client";
 import {GameOptions} from "../../types/GameOptions";
 import {GameData} from "../../types/GameData";
 import { HighscoreStore } from '../../store/highscore.store';
+import {Entry} from "../../types/Entry";
+import {delay} from "../../utils/utils";
 
 @Component({
   selector: 'app-content',
@@ -18,6 +20,8 @@ export class ContentComponent implements AfterViewInit, OnInit {
     highscore: 0,
     randomEntries: []
   }
+
+  preRandomEntries: Entry[] = []
 
   options: GameOptions = {
     max_top_amount: 200,
@@ -37,8 +41,6 @@ export class ContentComponent implements AfterViewInit, OnInit {
 
   constructor(private requests: HttpClient,
               private highscoreStore: HighscoreStore) { }
-
-
 
   async ngOnInit(): Promise<void> {
     this.game_data.highscore = await this.highscoreStore.getScore();
@@ -60,8 +62,11 @@ export class ContentComponent implements AfterViewInit, OnInit {
     this.options = options
     this.options_loaded = true
     this.element_section_game!.style.display = "block"
-    await this.loadingData()
+    this.toggleLoading()
+    await this.loadNewGameData()
     this.continue()
+    this.endLoading()
+    this.showGame()
   }
 
   async loadNewGameData() {
@@ -101,14 +106,18 @@ export class ContentComponent implements AfterViewInit, OnInit {
     this.element_section_game!.style.display = "block"
   }
 
-  continue() {
-    if (!this.loading) {
-      this.element_section_won!.style.display = "none"
-      this.element_section_loose!.style.display = "none"
-      this.showGame()
-    } else {
-      window.setTimeout(this.continue, 100)
+  async continue() {
+    this.element_section_won!.style.display = "none"
+    this.element_section_loose!.style.display = "none"
+
+    if (this.loading) {
+      this.element_section_loading!.style.display = "block"
+      await delay(100)
+      await this.continue()
     }
+
+    this.endLoading()
+    this.showGame()
   }
 
   async loadingData() {

@@ -32,6 +32,8 @@ export class HighscoreStore {
   }
 
   public async setScore(score: number): Promise<void> {
+    console.log("setScore: " + score);
+
     let user_id = await this._clerkService.user.id;
 
     await axios.post('http://localhost:3000/highscore', {
