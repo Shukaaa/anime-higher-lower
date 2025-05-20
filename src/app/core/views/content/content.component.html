@@ -1,28 +1,29 @@
-<component-loading id="loading"></component-loading>
+<component-loading *ngIf="loading"></component-loading>
+
 <app-options *ngIf="!options_loaded" (startClicked)="start($event)"></app-options>
-<div id="game">
+
+<div *ngIf="showGameSection && !loading" id="game">
   <h2>Which {{ options.game_type | titlecase }} has more
     <span *ngIf="options.game_type == 'anime'">viewer</span>
     <span *ngIf="options.game_type == 'manga'">reader</span>
     <span *ngIf="options.game_type == 'characters'">popularity</span>?</h2>
-    <h4>
-      <p>Highscore: {{ game_data.highscore }}</p>
-      <p>Score: {{ game_data.score }}</p>
-    </h4>
+  <h4><p>Score: {{ game_data.score }}</p></h4>
+
   <section class="game-section center-basic">
-    <div class="content" *ngFor="let entry of game_data.randomEntries; index as i; first as isFirst">
+    <div class="content" *ngFor="let entry of game_data.randomEntries; index as i;">
       <div>
-        <img class="clickable-content" (click)="chooseAnime(i)" [src]='entry["images"]["image_url"]' width="200" height="300" alt="anime image">
-        <h3 *ngIf="options.game_information.title"><u>{{ entry["titles"]["title"] }}</u></h3>
+        <img class="clickable-content" (click)="chooseAnime(i)" [src]="entry['images']['image_url']" width="200" height="300" alt="anime image">
+        <h3 *ngIf="options.game_information.title"><u>{{ entry['titles']['title'] }}</u></h3>
         <h5>
-          <p *ngIf="options.game_information.title_english">English: {{ entry["titles"]["title_english"] || entry["titles"]["title"] }}</p>
-          <p *ngIf="options.game_information.type">Type: {{ entry["type"] }}</p>
-          <p *ngIf="entry.game_type == 'anime' && options.game_information.episodes">Episodes: {{ entry["episodes"] || 'no episode data found' }}</p>
-          <p *ngIf="entry.game_type == 'manga' && options.game_information.episodes">Volumes: {{ entry["episodes"] || 'no volume data found' }}</p>
+          <p *ngIf="options.game_information.title_english">English: {{ entry['titles']['title_english'] || entry['titles']['title'] }}</p>
+          <p *ngIf="options.game_information.type">Type: {{ entry['type'] }}</p>
+          <p *ngIf="entry.game_type == 'anime' && options.game_information.episodes">Episodes: {{ entry['episodes'] || 'no episode data found' }}</p>
+          <p *ngIf="entry.game_type == 'manga' && options.game_information.episodes">Volumes: {{ entry['episodes'] || 'no volume data found' }}</p>
         </h5>
       </div>
     </div>
   </section>
 </div>
-<app-winning id="right" class="center" (continueClicked)="continue()"></app-winning>
-<app-loosing id="loosing" class="center" (retryClicked)="retry()" [score]="game_data.score"></app-loosing>
+
+<app-winning *ngIf="showWinningSection" class="center" (continueClicked)="continue()"></app-winning>
+<app-loosing *ngIf="showLoosingSection" class="center" (retryClicked)="retry()" [score]="game_data.score"></app-loosing>

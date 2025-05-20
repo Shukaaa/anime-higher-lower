@@ -1,34 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {GameOptions} from "../../types/GameOptions";
-import {HighscoreStore} from "../../store/highscore.store";
-import {Highscore} from "../../types/Highscore";
 
 @Component({
   selector: 'app-options',
   templateUrl: './options.component.html',
   styleUrls: ['../view.css']
 })
-export class OptionsComponent implements OnInit {
+export class OptionsComponent {
   @Output() startClicked = new EventEmitter<GameOptions>();
-  highscores: Highscore[] = [];
-
-  constructor(private _highscoreStore: HighscoreStore) {
-  }
-
-  async ngOnInit() {
-    await this._highscoreStore.getAllScores().then((highscores) => {
-      this.highscores = highscores;
-    });
-
-    // sort highscores by score
-    this.highscores = this.highscores.sort((a, b) => {
-      return +b.score - +a.score;
-    });
-
-    // limit highscores to 10
-    this.highscores = this.highscores.slice(0, 10);
-  }
 
   types = [
     {value: 'anime', viewValue: 'Anime'},

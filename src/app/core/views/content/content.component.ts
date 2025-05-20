@@ -1,27 +1,25 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import { HttpClient } from "../../http/http-client";
 import {GameOptions} from "../../types/GameOptions";
 import {GameData} from "../../types/GameData";
-import { HighscoreStore } from '../../store/highscore.store';
-import {Entry} from "../../types/Entry";
-import {delay} from "../../utils/utils";
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css', '../view.css']
 })
-export class ContentComponent implements AfterViewInit, OnInit {
-  options_loaded: boolean = false
-  loading: boolean = false
+export class ContentComponent implements AfterViewInit {
+  options_loaded = false;
+  loading = false;
+
+  showGameSection = false;
+  showWinningSection = false;
+  showLoosingSection = false;
 
   game_data: GameData = {
     score: 0,
-    highscore: 0,
     randomEntries: []
-  }
-
-  preRandomEntries: Entry[] = []
+  };
 
   options: GameOptions = {
     max_top_amount: 200,
@@ -32,103 +30,71 @@ export class ContentComponent implements AfterViewInit, OnInit {
       type: true,
       episodes: true
     }
-  }
+  };
 
-  element_section_game: HTMLElement | null = null
-  element_section_won: HTMLElement | null = null
-  element_section_loose: HTMLElement | null = null
-  element_section_loading: HTMLElement | null = null
+  constructor(private requests: HttpClient) { }
 
-  constructor(private requests: HttpClient,
-              private highscoreStore: HighscoreStore) { }
-
-  async ngOnInit(): Promise<void> {
-    this.game_data.highscore = await this.highscoreStore.getScore();
-  }
-
-  async ngAfterViewInit(): Promise<void> {
-    this.element_section_game = document.getElementById("game")
-    this.element_section_won = document.getElementById("right")
-    this.element_section_loose = document.getElementById("loosing")
-    this.element_section_loading = document.getElementById("loading")
-
-    this.element_section_game!.style.display = "none"
-    this.element_section_won!.style.display = "none"
-    this.element_section_loose!.style.display = "none"
-    this.element_section_loading!.style.display = "none"
-  }
+  async ngAfterViewInit(): Promise<void> {}
 
   async start(options: GameOptions) {
-    this.options = options
-    this.options_loaded = true
-    this.element_section_game!.style.display = "block"
-    this.toggleLoading()
-    await this.loadNewGameData()
-    this.continue()
-    this.endLoading()
-    this.showGame()
+    this.options = options;
+    this.options_loaded = true;
+    this.toggleLoading();
+    await this.loadNewGameData();
+    this.endLoading();
+    await this.continue();
   }
 
   async loadNewGameData() {
-    this.game_data.randomEntries = await this.requests.getRandomEntry(this.options.game_type, this.options.max_top_amount)
+    this.game_data.randomEntries = await this.requests.getRandomEntry(this.options.game_type, this.options.max_top_amount);
   }
 
   async chooseAnime(i: number) {
-    let chosenAnime = this.game_data.randomEntries[i == 0 ? 0 : 1]
-    let secondAnime = this.game_data.randomEntries[i == 0 ? 1 : 0]
+    const chosenAnime = this.game_data.randomEntries[i === 0 ? 0 : 1];
+    const secondAnime = this.game_data.randomEntries[i === 0 ? 1 : 0];
 
-    this.element_section_game!.style.display = "none"
+    this.showGameSection = false;
+
     if (chosenAnime.members >= secondAnime.members) {
-      this.element_section_won!.style.display = "block"
-      this.game_data.score++
+      this.showWinningSection = true;
+      this.game_data.score++;
+      await this.loadingData();
     } else {
-      this.element_section_loose!.style.display = "block"
-      if (this.game_data.score > this.game_data.highscore) {
-        await this.highscoreStore.setScore(this.game_data.score)
-      }
+      this.showLoosingSection = true;
     }
-
-    await this.loadingData()
   }
 
   toggleLoading() {
-    this.loading = true
-    this.element_section_game!.style.display = "none"
-    this.element_section_loading!.style.display = "block"
+    this.loading = true;
+    this.showGameSection = false;
   }
 
   endLoading() {
-    this.loading = false
-    this.element_section_loading!.style.display = "none"
+    this.loading = false;
   }
 
   showGame() {
-    this.element_section_game!.style.display = "block"
+    this.showGameSection = true;
   }
 
   async continue() {
-    this.element_section_won!.style.display = "none"
-    this.element_section_loose!.style.display = "none"
-
-    if (this.loading) {
-      this.element_section_loading!.style.display = "block"
-      await delay(100)
-      await this.continue()
-    }
-
-    this.endLoading()
-    this.showGame()
+    this.showWinningSection = false;
+    this.showLoosingSection = false;
+    this.showGame();
   }
 
   async loadingData() {
-    this.toggleLoading()
-    await this.loadNewGameData()
-    this.endLoading()
+    this.toggleLoading();
+    await this.loadNewGameData();
+    this.endLoading();
   }
 
   async retry() {
-    this.continue()
-    this.game_data.score = 0
-    this.game_data.highscore = await this.highscoreStore.getScore()
+    this.game_data.score = 0;
+    this.toggleLoading();
+    this.showLoosingSection = false;
+    await this.loadNewGameData();
+    this.endLoading();
+    await this.continue();
   }
 }

@@ -10,10 +10,7 @@ import {LoosingComponent} from "./core/views/loosing/loosing.component";
 import {OptionsComponent} from "./core/views/options/options.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FooterComponent} from "./core/components/footer/footer.component";
-import {ClerkService} from "./core/service/clerk.service";
-import { LoginComponent } from './core/views/login/login.component';
 import {AppRoutingModule} from "./app-routing.module";
-import { HighscoreStore } from './core/store/highscore.store';
 
 @NgModule({
   declarations: [
@@ -24,8 +21,7 @@ import { HighscoreStore } from './core/store/highscore.store';
     WinningComponent,
     LoosingComponent,
     OptionsComponent,
-    FooterComponent,
-    LoginComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +29,7 @@ import { HighscoreStore } from './core/store/highscore.store';
     AppRoutingModule
   ],
   providers: [
-    HttpClient,
-    ClerkService,
-    HighscoreStore
+    HttpClient
   ],
   bootstrap: [AppComponent]
 })
