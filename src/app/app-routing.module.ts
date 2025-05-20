@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {ContentComponent} from "./core/views/content/content.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/game', pathMatch: 'full' },
-  { path: 'game', component: ContentComponent }
+  { path: '', component: ContentComponent, pathMatch: 'full' },
 ];
 
 @NgModule({
