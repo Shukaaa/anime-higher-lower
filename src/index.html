@@ -10,17 +10,5 @@
 </head>
 <body>
   <app-root></app-root>
-  <script async crossorigin="anonymous">
-    const publishableKey = "pk_test_Y3V0ZS1waWctMzAuY2xlcmsuYWNjb3VudHMuZGV2JA";
-
-    (() => {
-      const script = document.createElement("script");
-      script.setAttribute("data-clerk-publishable-key", publishableKey);
-      script.async = true;
-      script.src = `https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js`;
-      script.crossOrigin = "anonymous";
-      document.body.appendChild(script);
-    })();
-  </script>
 </body>
 </html>
