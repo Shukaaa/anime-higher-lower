@@ -3,3 +3,10 @@
 root * /app/dist/animehl
 encode gzip
 file_server
+
+@notStatic {
+    file {
+        try_files {path} /index.html
+    }
+}
+rewrite @notStatic /index.html
