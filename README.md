@@ -1,7 +1,9 @@
 # Anime Higher-Lower
 
+> This project is outdated — This code sucks 🐱‍👓
+
 Welcome to the Anime Higher-Lower application!
-You can play this game here [Shuka's Anime Higher Lower Game](https://shuka.rip/projects/anime-higher-lower)
+You can play this game here [Shuka's Anime Higher Lower Game](https://animehl.shuka.rip)
 
 ## Project Description
 
